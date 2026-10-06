@@ -14,3 +14,5 @@ findings/
 # Python caches
 __pycache__/
 *.pyc
+*.sqlite
+*.sqlite-journal

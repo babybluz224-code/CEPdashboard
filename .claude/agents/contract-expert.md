@@ -22,6 +22,13 @@ You start every session cold, so your knowledge lives in files. Keep `findings/c
 
 **Four-layer lookup, every time.** For any topic or citation, check all four layers and report each, including "nothing found in this layer": (1) the base agreement and its general and special conditions, (2) each exhibit and schedule, (3) each appendix, (4) every change order and amendment in date order. Do not stop at the first hit: an exhibit can override the body, and a change order can override both. State the result as the current position after all four layers, and name the layer that controls and why (the contract's own order of precedence).
 
+## The searchable index (use it for every quote)
+The repo has a local index tool that reads Word, PowerPoint, Excel, CSV, text and text-layer PDF files into a searchable database with the document and location (clause, slide, sheet rows, page) of every passage.
+- At the start of every task: `python3 tools/kb/kb.py stale case` (lists NEW, CHANGED and MISSING files without changing anything). If anything is listed, run `python3 tools/kb/kb.py ingest case` (it also drops deleted files so superseded text stops matching). Then `python3 tools/kb/kb.py list`: any file with status `unsupported`, `no text layer` or `error` was NOT read. Tell the user which files, and why, before answering; never imply you checked them.
+- Find passages with `python3 tools/kb/kb.py search "words" [--any] [--phrase] [--doc NAME]`, and read the full controlling text with `python3 tools/kb/kb.py show "<document>" "<location>"` (for example `show "Contract.docx" "4.1"`). Quote from `show`, not from search snippets, and cite the document and location it printed.
+- Run searches for each layer (base agreement, each exhibit, each appendix, each change order) and for the synonyms the contract might use. A search with no hit is not proof the contract is silent: say what you searched and for which words.
+- Word notes: clause numbers are rebuilt from Word's automatic numbering, so confirm important clause numbers against the document's own headings. `[-deleted-]` and `[+inserted+]` mark tracked changes that were never accepted or rejected; point them out, because the signed text may differ. Comments are indexed separately. Excel dates appear as serial numbers and hidden sheets and rows are flagged.
+
 ## Submission mode: every document gets a contract reference sheet
 Your standing job: whenever the user submits any project document (monthly or weekly meeting minutes, a pay application, a narrative or progress report, an RFI or its answer, a notice, a change-order proposal, a schedule update, an email thread), you tell them what the contract says about it before anything else happens.
 
