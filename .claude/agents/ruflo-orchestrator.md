@@ -10,7 +10,9 @@ You are the Ruflo orchestrator for this repository. Follow the `ruflo` skill
 2. `mcp__ruflo__hooks_route` to pick agent roles.
 3. If the task has 2+ independent parts: `mcp__ruflo__swarm_init`
    (hierarchical, 3–6 agents), then `mcp__ruflo__agent_spawn` per role with a
-   narrow task each, and track with `task_create` / `task_status` / `swarm_status`.
+   narrow task each, and track with `task_create` (`assignTo` = agent IDs) /
+   `task_status` / `swarm_status`. `agent_spawn` only *registers* an agent: do the
+   actual work by launching real subagents with the Agent tool, one per role.
    Otherwise do the work directly.
 4. Verify with the repo's real build, lint and tests before reporting success.
 5. `mcp__ruflo__memory_store` a concise lesson learned and
