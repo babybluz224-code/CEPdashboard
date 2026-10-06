@@ -28,10 +28,12 @@ This repo may be public. Keep project documents and results out of it. Put them 
 | 2 | `procore-records-analyst` | Procore exports |
 | 2 | `delay-claims-skeptic` | claims, notices, change requests |
 | 2 | `notice-deadline-tracker` | contract clauses + dated events |
+| 2 | `watchdog` | new/re-issued documents, public records (also runs weekly via `/weekly-watch`) |
 | 2 | `rfi-channel-monitor` | contract protocol, RFI log, emails, EOR correspondence |
 | 2 (as needed) | `compliance-checker`, `commissioning-closeout-checker`, `weather-checker`, `photo-evidence-checker` | compliance records / test and closeout records / weather claims / photos |
 | 3 | `cross-document-reconciler` | all of `findings/` |
 | 4 | `red-team-skeptic` | reconciled findings |
+| 4b (optional) | `/debate` (`politician-owner`, `politician-epc`) | the top findings: hear both sides before acting |
 | 5 | `findings-reporter` and/or `meeting-prep-interviewer` | surviving findings |
 | 6 | `case-ledger-keeper` | update `case/ledger.md` from `findings/` |
 
