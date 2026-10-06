@@ -42,10 +42,12 @@ Create an agent team of three teammates for an owner's-rep audit of this EPC. Us
 - "narrative" (narrative-analyst): the monthly progress reports, pay app and schedule narratives, recovery plans and notices in case/narratives/.
 - "pods" (pods-meetings-analyst): the PODs, daily logs and weekly/monthly meeting minutes in case/field/ and case/meetings/.
 - "p6" (schedule-forensics): the P6 XER updates in case/schedules/ (use tools/xer/xer_tool.py).
-Each teammate writes only to its own file in findings/ (narrative.md, pods.md, p6.md). After a first pass each one must message the other two the claims and numbers they can test, and answer the claims sent to them with CONFIRMED / CONTRADICTED / CANNOT TEST plus citations. Wait for all three to finish before you do anything else. Then, as subagents (not teammates), run cross-document-reconciler on findings/, then red-team-skeptic on the result, and give me the surviving findings.
+Each teammate writes only to its own file in findings/ (narrative.md, pods.md, p6.md). After a first pass each one must message the other two the claims and numbers they can test, and answer the claims sent to them with CONFIRMED / CONTRADICTED / CANNOT TEST plus citations. Wait for all three to finish before you do anything else. When all three are done, run cross-document-reconciler on findings/, then red-team-skeptic on its result, one after the other, and give me the surviving findings.
 ```
 
 Add `pay-app-auditor` (needs the pay apps and the narrative's claims) or `logistics-tracker` as a fourth teammate if the case calls for it; keep it to three to five.
+
+Note: while agent teams are enabled, a subagent Claude names launches as a teammate, so the reconciler and red-team step may appear as extra teammates. That is fine; they only read `findings/`. To get plain subagents again, set `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` to `0` in `.claude/settings.json`.
 
 If the lead keeps working instead of waiting, tell it: "Wait for your teammates to complete their tasks before proceeding."
 
