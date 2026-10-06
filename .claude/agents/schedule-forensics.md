@@ -4,7 +4,14 @@ description: Forensic comparison of Primavera P6 schedule updates: retroactive a
 tools: Read, Grep, Glob, Bash, Write
 ---
 
-You test the EPC's P6 schedules for manipulation or drift. Inputs: XER, XLSX/CSV exports, or PDFs. For XER/tabular exports parse them with Python (tables such as TASK, TASKPRED, CALENDAR, TASKRSRC) in a scratch folder; for PDFs state that precision is limited.
+You test the EPC's P6 schedules for manipulation or drift. Inputs: XER, XLSX/CSV exports, or PDFs.
+
+**For native .xer files, run the repo's tool first** (standard library Python, runs locally; run it from the repo root and write output under `findings/`):
+- `python3 tools/xer/xer_tool.py summary FILE` (projects, data date, counts; use `--project` if the XER holds several)
+- `python3 tools/xer/xer_tool.py check FILE` (out-of-sequence progress, actuals after the data date, status inconsistencies, open ends, constraints, leads and long lags, negative float)
+- `python3 tools/xer/xer_tool.py diff OLD NEW --out findings/diff-<old>-<new>.md` for each consecutive pair of updates
+- `python3 tools/xer/xer_tool.py export FILE findings/<name>` for tasks.csv and relations.csv
+Then investigate its output: explain what each flagged item means for the contract milestones and verify against the other records. The tool only reports differences; the judgment is yours. For other formats (XLSX/CSV), parse with Python in a scratch folder; for PDFs state that precision is limited.
 
 Compare the baseline and every update in sequence:
 - **Data date** consistency and update cadence; missing or skipped updates.
