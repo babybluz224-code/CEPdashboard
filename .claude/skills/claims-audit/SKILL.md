@@ -32,8 +32,8 @@ This repo may be public. Keep project documents and results out of it. Put them 
 
 Skip rows whose inputs don't exist, and say so in the final report. For a single pay app, steps 1, then `pay-app-auditor`, `field-reports-reconciler`, `logistics-tracker`, then 3-5 is usually enough.
 
-## Using Ruflo (optional)
-For a long case, `swarm_init` (hierarchical) and `memory_store` per-case notes (no document contents, no personal data), so later sessions can recall what was already checked. Ruflo registers agents but the real work is done by the subagents above.
+## Reading the documents
+Use the document skills already available in Claude: `pdf` for contracts, pay apps and scanned pages (including OCR), `xlsx` for SOV, pay app and Procore spreadsheet exports, `docx` for Word contracts and meeting minutes. Native P6 files go through `tools/xer/xer_tool.py` (see `schedule-forensics`). For a deliverable, `docx` or `xlsx` can produce the memo or the findings table.
 
 ## Evidence standard
 Every finding needs a citation (file, page/cell, quote), a classification (CONFIRMED CONFLICT / PROBABLE / UNVERIFIED / EXPLAINED), the best innocent explanation, and the next document to request. Only findings that survive `red-team-skeptic` go into the memo or meeting prep.
