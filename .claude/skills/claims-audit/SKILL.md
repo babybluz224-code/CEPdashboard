@@ -32,6 +32,23 @@ This repo may be public. Keep project documents and results out of it. Put them 
 
 Skip rows whose inputs don't exist, and say so in the final report. For a single pay app, steps 1, then `pay-app-auditor`, `field-reports-reconciler`, `logistics-tracker`, then 3-5 is usually enough.
 
+## Team mode (agent teams)
+For the core three-way cross-check, run an agent team so the teammates can challenge each other's findings while they work. Requires Claude Code v2.1.32+ and an interactive session; agent teams are experimental, off by default, and are enabled for this project in `.claude/settings.json`. They use noticeably more tokens than subagents. Teammates cannot spawn teammates, and `/resume` does not restore them.
+
+Ask the lead for exactly this (adjust the case folder paths):
+
+```text
+Create an agent team of three teammates for an owner's-rep audit of this EPC. Use these agent types and names:
+- "narrative" (narrative-analyst): the monthly progress reports, pay app and schedule narratives, recovery plans and notices in case/narratives/.
+- "pods" (pods-meetings-analyst): the PODs, daily logs and weekly/monthly meeting minutes in case/field/ and case/meetings/.
+- "p6" (schedule-forensics): the P6 XER updates in case/schedules/ (use tools/xer/xer_tool.py).
+Each teammate writes only to its own file in findings/ (narrative.md, pods.md, p6.md). After a first pass each one must message the other two the claims and numbers they can test, and answer the claims sent to them with CONFIRMED / CONTRADICTED / CANNOT TEST plus citations. Wait for all three to finish before you do anything else. Then, as subagents (not teammates), run cross-document-reconciler on findings/, then red-team-skeptic on the result, and give me the surviving findings.
+```
+
+Add `pay-app-auditor` (needs the pay apps and the narrative's claims) or `logistics-tracker` as a fourth teammate if the case calls for it; keep it to three to five.
+
+If the lead keeps working instead of waiting, tell it: "Wait for your teammates to complete their tasks before proceeding."
+
 ## Reading the documents
 Use the document skills already available in Claude: `pdf` for contracts, pay apps and scanned pages (including OCR), `xlsx` for SOV, pay app and Procore spreadsheet exports, `docx` for Word contracts and meeting minutes. Native P6 files go through `tools/xer/xer_tool.py` (see `schedule-forensics`). For a deliverable, `docx` or `xlsx` can produce the memo or the findings table.
 

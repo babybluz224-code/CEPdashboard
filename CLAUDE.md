@@ -8,3 +8,4 @@ Solar development, owner's project manager. This repo holds audit agents (`.clau
 - Say "inconsistent with", never "lied". No legal advice; flag items for counsel.
 - Native `.xer` files: use `python3 tools/xer/xer_tool.py` (summary, check, export, diff). Tested only on synthetic files so far.
 - For a full review, use `/claims-audit`.
+- Team mode (agent teams) is enabled in `.claude/settings.json`. For the narrative / PODs+meetings / P6 cross-check, use the prompt in `.claude/skills/claims-audit/SKILL.md`. Each teammate writes only to its own `findings/` file.
