@@ -20,16 +20,23 @@ connected: check `claude mcp list`, and that Node.js 20+ is installed.
 
 1. **Recall** – `memory_search` (query = the task in plain words) to pull prior
    patterns/decisions for this repo. Use what is relevant; ignore the rest.
+   Without a local embedding model Ruflo falls back to mock vectors, so search
+   can return nothing even for just-stored notes; if so, use `memory_retrieve`
+   or `memory_list` with the exact key/namespace instead.
 2. **Route** – `hooks_route` with the task description to get the suggested
    agent type(s) and model tier.
 3. **Start a swarm** (only for multi-part work) – `swarm_init` with
    `topology: "hierarchical"` (one coordinator, workers) for most tasks; use
    `"mesh"` only for peer review/brainstorm style work. Keep `maxAgents` small
    (3–6).
-4. **Spawn agents** – `agent_spawn` once per role (e.g. `coder`, `tester`,
-   `reviewer`, `researcher`, `architect`), each with a narrow, concrete task.
-5. **Track work** – `task_create` / `task_assign` / `task_status`;
-   `swarm_status` to see progress.
+4. **Register agents** – `agent_spawn` once per role (e.g. `coder`, `tester`,
+   `reviewer`, `researcher`, `architect`), each with a narrow `task`. This only
+   *registers* the agent for coordination; it does not run any work. To do the
+   work, launch real Claude Code subagents with the Agent tool (one per
+   registered role), or use `agent_execute` (needs `ANTHROPIC_API_KEY`).
+5. **Track work** – `task_create` / `task_assign` / `task_status`. Tasks are not
+   linked to a swarm automatically (`swarm_status` shows `taskCount: 0`), so
+   pass `assignTo` with the agent IDs from step 4.
 6. **Verify** – run the project's own build/lint/tests yourself. Ruflo results
    are proposals until checks pass.
 7. **Learn** – `memory_store` a short note of what worked (key like
