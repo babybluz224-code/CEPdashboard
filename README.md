@@ -46,3 +46,17 @@ Ruflo tools appear to Claude as `mcp__ruflo__<tool>`.
 
 The version is pinned in `.mcp.json` (`ruflo@3.52.1`). Check the latest with
 `npm view ruflo version`, edit the version in `args`, then restart the session.
+
+## Owner's-rep audit agents
+
+For auditing an EPC contractor on a solar build, the repo has 13 custom agents in
+`.claude/agents/` and the `claims-audit` skill (`/claims-audit`) that runs them in order:
+contract-obligations-mapper, schedule-forensics, pay-app-auditor,
+field-reports-reconciler, logistics-tracker, civil-mech-quantities-verifier,
+commitments-tracker, procore-records-analyst, delay-claims-skeptic,
+cross-document-reconciler, red-team-skeptic, meeting-prep-interviewer and
+findings-reporter.
+
+**Confidentiality:** this repo may be public. Put project documents in `case/` and
+write results to `findings/`; both are gitignored, as are `.xer`, `.xlsx`, `.xls` and
+`.pdf` files. Never commit contracts, pay apps, schedules or findings.
