@@ -26,17 +26,18 @@ connected: check `claude mcp list`, and that Node.js 20+ is installed.
 2. **Route** – `hooks_route` with the task description to get the suggested
    agent type(s) and model tier.
 3. **Start a swarm** (only for multi-part work) – `swarm_init` with
-   `topology: "hierarchical"` (one coordinator, workers) for most tasks; use
+   `topology: "hierarchical"` (one coordinator, workers) and `strategy: "specialized"`
+   for most tasks; use
    `"mesh"` only for peer review/brainstorm style work. Keep `maxAgents` small
    (3–6).
-4. **Register agents** – `agent_spawn` once per role (e.g. `coder`, `tester`,
+4. **Register agents** – `agent_spawn { agentType, task }` once per role (e.g. `coder`, `tester`,
    `reviewer`, `researcher`, `architect`), each with a narrow `task`. This only
    *registers* the agent for coordination; it does not run any work. To do the
    work, launch real Claude Code subagents with the Agent tool (one per
    registered role), or use `agent_execute` (needs `ANTHROPIC_API_KEY`).
 5. **Track work** – `task_create` / `task_assign` / `task_status`. Tasks are not
    linked to a swarm automatically (`swarm_status` shows `taskCount: 0`), so
-   pass `assignTo` with the agent IDs from step 4.
+   pass `assignTo` to `task_create` (or `agentIds` to `task_assign`) with the agent IDs from step 4.
 6. **Verify** – run the project's own build/lint/tests yourself. Ruflo results
    are proposals until checks pass.
 7. **Learn** – `memory_store` a short note of what worked (key like
