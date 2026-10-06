@@ -35,6 +35,8 @@ This repo may be public. Keep project documents and results out of it. Put them 
 | 5 | `findings-reporter` and/or `meeting-prep-interviewer` | surviving findings |
 | 6 | `case-ledger-keeper` | update `case/ledger.md` from `findings/` |
 
+Every document you hand to any agent should first have a contract reference sheet from `contract-expert` (the `/contract-ref` skill); the other agents then test it against the contract's actual text.
+
 Skip rows whose inputs don't exist, and say so in the final report. For a single pay app, steps 1, then `pay-app-auditor`, `field-reports-reconciler`, `logistics-tracker`, then 3-5 is usually enough.
 
 ## Team mode (agent teams)
