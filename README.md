@@ -1,48 +1,15 @@
 # CEP Dashboard
 
-CEP Dashboard. There is no application code yet; for now the repo only contains a
-[Ruflo](https://github.com/ruvnet/claude-flow) (claude-flow v3) multi-agent setup for
-Claude Code:
+Workspace for owner's-rep oversight of a solar EPC contractor. There is no application code; the repo holds Claude Code agents, a skill, and a local P6 tool.
 
-- `.mcp.json` registers the `ruflo` MCP server (`npx -y ruflo@3.52.1 mcp start`).
-- `.claude/skills/ruflo/SKILL.md` is the **ruflo** skill: when and how to use swarms,
-  memory and routing.
-- `.claude/agents/ruflo-orchestrator.md` is the **ruflo-orchestrator** subagent.
+## What's here
+- `.claude/agents/`: 15 audit agents (narrative-analyst, pods-meetings-analyst, contract-obligations-mapper, schedule-forensics, pay-app-auditor, field-reports-reconciler, logistics-tracker, civil-mech-quantities-verifier, commitments-tracker, procore-records-analyst, delay-claims-skeptic, cross-document-reconciler, red-team-skeptic, meeting-prep-interviewer, findings-reporter).
+- `.claude/skills/claims-audit/`: the `/claims-audit` skill that runs them in order, including a three-teammate agent team (narrative, PODs + meetings, P6) that cross-checks each other. Agent teams are experimental and enabled in `.claude/settings.json`.
+- `tools/xer/`: reads native Primavera P6 `.xer` files and diffs schedule updates (standard-library Python, runs locally). See `tools/xer/README.md`.
+- `CLAUDE.md`: the working rules Claude follows in this repo.
 
-## Requirements
+## Confidentiality
+This repo may be public. Put project documents in `case/` and write results to `findings/`; both are gitignored, as are `.xer`, `.xlsx`, `.xls` and `.pdf` files. Never commit contracts, pay apps, schedules or findings. Prefer running Claude Code locally for real project files.
 
-- Node.js 20+ (the server is launched through `npx`)
-- [Claude Code](https://claude.com/claude-code)
-
-## Setup
-
-Open the project in Claude Code. On first open it asks whether to approve the
-project-scoped `ruflo` MCP server from `.mcp.json`; approve it. Then check it is
-connected:
-
-```sh
-claude mcp list
-```
-
-## Usage
-
-- Run the skill: `/ruflo`
-- Or ask for the agent: "use the ruflo-orchestrator to build the dashboard API, UI and
-  tests".
-
-Ruflo tools appear to Claude as `mcp__ruflo__<tool>`.
-
-## Troubleshooting
-
-- **Ruflo tools missing**: the server is not connected. Run `claude mcp list`, confirm
-  Node.js 20+ is installed and the server was approved, then restart the Claude Code
-  session.
-- **First run is slow**: `npx` downloads the pinned package the first time.
-- **`agent_spawn` did nothing**: it only registers an agent for coordination and does
-  not run any work. Launch real Claude Code subagents (or use `agent_execute`, which
-  needs `ANTHROPIC_API_KEY`) to do the work.
-
-## Upgrading Ruflo
-
-The version is pinned in `.mcp.json` (`ruflo@3.52.1`). Check the latest with
-`npm view ruflo version`, edit the version in `args`, then restart the session.
+## Tests
+`python3 -m unittest tests.test_xer_tool`

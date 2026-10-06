@@ -1,12 +1,12 @@
-# Ruflo runtime state (created when the MCP server runs in the repo)
-.claude-flow/
-.swarm/
-ruvector.db
-ruvector.db-*
-*.db-wal
-*.db-shm
-
 # Local Claude Code settings
 .claude/settings.local.json
 
 node_modules/
+
+# Project documents and audit results are confidential: never commit them
+case/
+findings/
+*.xer
+*.xlsx
+*.xls
+*.pdf
