@@ -10,3 +10,7 @@ findings/
 *.xlsx
 *.xls
 *.pdf
+
+# Python caches
+__pycache__/
+*.pyc
