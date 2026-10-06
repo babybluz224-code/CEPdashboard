@@ -17,7 +17,8 @@ This repo may be public. Keep project documents and results out of it. Put them 
 ## Run order (use the Agent tool, one subagent per row; independent rows in parallel)
 | Step | Agent | Needs |
 |------|-------|-------|
-| 1 | `contract-obligations-mapper` | contract, exhibits, amendments |
+| 0 | `case-ledger-keeper` | `case/ledger.md` (read first: what is open, what is overdue) |
+| 1 | `contract-expert` and `contract-obligations-mapper` | contract, exhibits, amendments, change orders |
 | 2 (parallel) | `schedule-forensics` | P6 updates |
 | 2 | `pay-app-auditor` | pay apps + backup |
 | 2 | `field-reports-reconciler` | dailies, PODs, Procore logs |
@@ -26,9 +27,15 @@ This repo may be public. Keep project documents and results out of it. Put them 
 | 2 | `commitments-tracker` | meeting minutes, emails |
 | 2 | `procore-records-analyst` | Procore exports |
 | 2 | `delay-claims-skeptic` | claims, notices, change requests |
+| 2 | `notice-deadline-tracker` | contract clauses + dated events |
+| 2 | `rfi-channel-monitor` | contract protocol, RFI log, emails, EOR correspondence |
+| 2 (as needed) | `compliance-checker`, `commissioning-closeout-checker`, `weather-checker`, `photo-evidence-checker` | compliance records / test and closeout records / weather claims / photos |
 | 3 | `cross-document-reconciler` | all of `findings/` |
 | 4 | `red-team-skeptic` | reconciled findings |
 | 5 | `findings-reporter` and/or `meeting-prep-interviewer` | surviving findings |
+| 6 | `case-ledger-keeper` | update `case/ledger.md` from `findings/` |
+
+Every document you hand to any agent should first have a contract reference sheet from `contract-expert` (the `/contract-ref` skill); the other agents then test it against the contract's actual text.
 
 Skip rows whose inputs don't exist, and say so in the final report. For a single pay app, steps 1, then `pay-app-auditor`, `field-reports-reconciler`, `logistics-tracker`, then 3-5 is usually enough.
 
@@ -45,7 +52,7 @@ Create an agent team of three teammates for an owner's-rep audit of this EPC. Us
 Each teammate writes only to its own file in findings/ (narrative.md, pods.md, p6.md). After a first pass each one must message the other two the claims and numbers they can test, and answer the claims sent to them with CONFIRMED / CONTRADICTED / CANNOT TEST plus citations. Wait for all three to finish before you do anything else. When all three are done, run cross-document-reconciler on findings/, then red-team-skeptic on its result, one after the other, and give me the surviving findings.
 ```
 
-Add `pay-app-auditor` (needs the pay apps and the narrative's claims) or `logistics-tracker` as a fourth teammate if the case calls for it; keep it to three to five.
+Add `contract-expert` as a fourth teammate so the others can ask it what the contract says (it answers with quotes), or `pay-app-auditor` / `logistics-tracker`, as a fourth teammate if the case calls for it; keep it to three to five.
 
 Note: while agent teams are enabled, a subagent Claude names launches as a teammate, so the reconciler and red-team step may appear as extra teammates. That is fine; they only read `findings/`. To get plain subagents again, set `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` to `0` in `.claude/settings.json`.
 
