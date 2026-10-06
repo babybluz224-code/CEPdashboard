@@ -5,7 +5,8 @@
   "permissions": {
     "allow": [
       "Bash(python3 tools/xer/xer_tool.py:*)",
-      "Bash(python3 tools/kb/kb.py:*)"
+      "Bash(python3 tools/kb/kb.py:*)",
+      "Bash(python3 tools/watch/watch.py:*)"
     ]
   }
 }
