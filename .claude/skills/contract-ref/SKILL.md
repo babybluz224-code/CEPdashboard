@@ -9,6 +9,7 @@ Every project document gets a contract check first.
 
 1. Identify the document (path under `case/`) and what kind it is. The contract package lives in `case/contract/`. If it is missing, tell the user and stop.
 2. Run the `contract-expert` subagent in **submission mode** on the document. Give it the file path and the document type. It updates its working files if the package changed, then writes `findings/contract/ref-<name>-<date>.md`.
+   The agent first checks every contract citation in the document ("per Exhibit K-2", article numbers, change orders) against the actual text, current version and qualifiers, and lists them in a "Citations checked" table.
 3. Show the user the result before any other analysis: the plain summary, the inconsistencies, the clocks that start or run, and the questions for counsel. Keep it short and point to the file for detail.
 4. If the sheet lists deadlines, offer to run `notice-deadline-tracker`. If it flags an RFI or direction going outside the protocol, offer `rfi-channel-monitor`. If the user wants more, continue with `/claims-audit`.
 
